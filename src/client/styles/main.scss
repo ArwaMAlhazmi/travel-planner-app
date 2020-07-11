@@ -1,0 +1,9 @@
+@import 'fonts';
+@import 'vars';
+
+h1{
+	color: $mainColor;
+	font-family: 'Work Sans';
+}
+
+@import '~bootstrap';
