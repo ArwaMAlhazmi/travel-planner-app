@@ -2,8 +2,175 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>TravelPlanner</title>
+	<title>Travel Planner</title>
 </head>
 <body>
+	<div class="app container-fluid p-0 m-0">
+
+		<!-- Page header -->
+		<div id="addTrip">
+			<header class="row align-items-center m-0"  style="background-color: #a6a6a6;">
+				<div class="col-6 pl-5">
+					<a href="">
+		  				<i class="fas fa-plane-departure mr-2"></i>
+		  				<span>Travel Planner</span>
+		  			</a>
+				</div>
+
+				<div class="col-6 text-right pr-5">
+					<a id="savedTrips" href="#trips">Saved Trips</a>
+				</div>
+			</header>
+
+	  		<!-- The app -->
+	  		<section id="tripPicker" class="trip-picker row m-0 justify-content-center align-items-center" style="background-color: teal;">
+  				<form class="border border-light rounded p-3">
+
+  					<div class="form-row">
+  						<div class="form-group col">
+						    <label for="formGroupExampleInput">current Location</label>
+						    <input type="text" class="form-control" id="-" placeholder="Enter city name">
+						 </div>
+						 <div class="form-group col">
+						      <label for="formGroupExampleInput">Destination</label>
+						    <input type="text" class="form-control" id="-" placeholder="Enter city name">
+						 </div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-group col">
+						    <label for="formGroupExampleInput">Departure date</label>
+						    <input type="date" class="form-control" id="-" value="2011-08-19">
+						 </div>
+						 <div class="form-group col">
+						      <label for="formGroupExampleInput">Return date</label>
+						    <input type="date" class="form-control" id="-" value="2011-08-19">
+						 </div>
+					</div>
+
+					<div class="form-row">
+						<button class="btn btn-secondary btn-block" type="submit">Submit</button>
+					</div>
+  				</form>
+
+	  		</section>
+				
+		</div>
+		
+
+  		<div id="trips" class="trips row m-0 p-3" style="background-color: black;">
+
+  			<div class="trip col-xs-12 col-sm-6 col-md-4 p-3" style="background-color: LightPink">
+  				<div class="card h-100">
+				    <img class="card-img-top" src="./assets/imgs/holder.png" alt="Card image cap">
+				    <div class="card-body">
+				      <h5 class="card-title">Paris, France</h5>
+				      <p class="card-text">
+
+				      	<div class="tripDates"> 
+				      		<div class="dates">2020-07-29 - 2020-07-30</div>
+				      		<div class="duration">Trip Duration: <b>3</b> day/s</div>
+				      	</div>
+				      	<br>
+
+				      	<div class="tripWeather">
+				      		<h6>Weather forecast:</h6>
+				      		<div class="weatherData row justify-content-center align-items-center">
+				      			<div class="weatherIcon col-3" style="font-size: 3em;">
+			      				<i class="fas fa-sun"></i>
+				      			</div>
+				      			<div class="weatherForcast col-9">
+				      				<div class="temperature">58 °C</div>
+				      				<div class="weatherMessage">Sunny throughout the day.</div>
+				      			</div>
+				      		</div>
+				      			
+				      	</div>
+
+				      </p>
+				    </div>
+				    <div class="card-footer d-flex align-items-center">
+				      <small class="text-muted">Your trip will start in <b>3</b> days</small>
+				      <button title="Delete Trip" class="btn btn-secondary rounded-circle text-white ml-auto" type="button">
+		  					<i class="fas fa-trash-alt"></i>
+		  				</button>
+				    </div>
+				 </div>
+  			</div>
+
+  			<div class="trip col-xs-12 col-sm-6 col-md-4 m-0 p-3" style="background-color: LightPink">
+  				<div class="card h-100">
+				    <img class="card-img-top" src="./assets/imgs/london.jpg" alt="Card image cap">
+				    <div class="card-body">
+				      <h5 class="card-title">Card title</h5>
+				      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+				    </div>
+				    <div class="card-footer d-flex align-items-center">
+				      <small class="text-muted">Your trip will start in <b>3</b> days</small>
+				      <button class="btn btn-secondary rounded-circle text-white ml-auto" type="button" title="Delete Trip">
+		  					<i class="fas fa-trash-alt"></i>
+		  				</button>
+				    </div>
+				 </div>
+  			</div>
+  			<div class="trip col-xs-12 col-sm-6 col-md-4 m-0 p-3" style="background-color: LightPink">
+  				<div class="card h-100">
+				    <img class="card-img-top" src="./assets/imgs/holder.png" alt="Card image cap">
+				    <div class="card-body">
+				      <h5 class="card-title">Card title</h5>
+				      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+				    </div>
+				    <div class="card-footer d-flex align-items-center">
+				      <small class="text-muted">Your trip will start in <b>3</b> days</small>
+				      <button class="btn btn-secondary rounded-circle text-white ml-auto" type="button">
+		  					<i class="fas fa-trash-alt"></i>
+		  				</button>
+				    </div>
+				 </div>
+  			</div>
+  			<div class="trip col-xs-12 col-sm-6 col-md-4 m-0 p-3" style="background-color: LightPink">
+  				<div class="card h-100">
+				    <img class="card-img-top" src="./assets/imgs/london.jpg" alt="Card image cap">
+				    <div class="card-body">
+				      <h5 class="card-title">Card title</h5>
+				      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+				    </div>
+				    <div class="card-footer d-flex align-items-center">
+				      <small class="text-muted">Your trip will start in <b>3</b> days</small>
+				      <button class="btn btn-secondary rounded-circle text-white ml-auto" type="button">
+		  					<i class="fas fa-trash-alt"></i>
+		  				</button>
+				    </div>
+				 </div>
+  			</div>
+  			<div class="add-trip col-xs-12 col-sm-6 col-md-4 m-0 py-3" style="background-color: BlanchedAlmond;">
+  				<div class="card h-100 bg-light mb-3" style=" border-style: dashed; border-width: 2.5px;">
+				  <div class="card-body d-flex align-items-center justify-content-center">
+				    <a id="addrip" href="#addTrip" title="Add trip"> <i class="fas fa-plus-circle"></i> </a>
+				  </div>
+				</div>
+  			</div>
+  		</div>
+
+		<footer style="background-color: #a6a6a6;">
+			<div class="container">
+					<div class="row py-sm-3">
+
+						<div class="col-sm-6 col-lg-5 text-center text-sm-left my-1 ">
+							<h6 class="mb-0">&copy All Right Reserved</h6>
+						</div>
+
+						<div class="col-sm-6 col-lg-7 text-center text-sm-right my-1">
+							<a class="fb-ic">
+								<i class="fab fa-facebook-f white-text mr-4"> </i>
+							</a>
+							<a class="tw-ic">
+								<i class="fab fa-twitter white-text mr-4"> </i>
+							</a>
+						</div>
+				</div>
+		    </div>
+		 </footer>
+
 </body>
 </html>

@@ -1,9 +1,68 @@
 @import 'fonts';
 @import 'vars';
 
+html {
+  scroll-behavior: smooth;
+}
+
 h1{
 	color: $mainColor;
 	font-family: 'Work Sans';
+}
+
+.trip-picker{
+	height: 90vh;
+}
+
+.trips{
+}
+
+.add-trip{
+	font-size: 8em;
+	a{
+		text-decoration: none;
+		color: #B8B8B8;
+	}
+
+	a:hover, a:focus{
+		color: #A9A9A9;
+		text-decoration: none;
+	}
+}
+
+header{
+	height: 10vh;
+	font-size: 1em;
+	color: white;
+
+	a{
+		text-decoration: none;
+		color: white;
+	}
+
+	a:hover, a:focus{
+		color: white;
+		text-decoration: none;
+		font-weight: bold;
+
+	}
+}
+
+footer{
+	font-size: 1em;
+	color: white;
+
+	a{
+		text-decoration: none;
+		color: white;
+	}
+
+	a:hover, a:focus{
+		color: white;
+		text-decoration: none;
+		font-weight: bold;
+
+	}
 }
 
 @import '~bootstrap';
