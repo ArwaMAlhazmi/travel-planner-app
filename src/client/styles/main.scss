@@ -10,11 +10,52 @@ h1{
 	font-family: 'Work Sans';
 }
 
+form{
+	background-color: rgba(255, 255, 255, 0.3);
+	font-family: 'Work Sans';
+}
+
 .trip-picker{
 	height: 90vh;
+	background: url(../assets/imgs/vacation1.jpg);
+	background-size: cover;
+	background-position: center;
+
+	.attribution{
+		a{
+			text-decoration: none;
+			text-size: 1px;
+			color: white;
+
+			&:hover, &:focus{
+				color: white;
+				text-decoration: none;
+			}
+		}
+	}
 }
 
 .trips{
+	// background-color: #E4E0D7;
+	// background-color: #AAA6A7;
+	background-color: #F1F0EC;
+	 .card-title{
+	 	color:#e1ac66;
+	 	font-weight: bold;
+	 }
+	 .tripWeather{
+	 	h6{
+	 		color: #6c6b6c;
+	 		font-weight: bold;
+	 	}
+	 	.weatherIcon{
+	 		font-size: 3em;
+	 	}
+	 }
+}
+
+.card-img-top{
+	object-fit: cover;
 }
 
 .add-trip{
@@ -22,46 +63,58 @@ h1{
 	a{
 		text-decoration: none;
 		color: #B8B8B8;
+
+		&:hover, &:focus{
+			color: #A9A9A9;
+			text-decoration: none;
+		}
 	}
 
-	a:hover, a:focus{
-		color: #A9A9A9;
-		text-decoration: none;
+	.card{
+		border-style: dashed;
+		border-width: 2.5px;
+		.card-body{
+			background-color: #F1F0EC;
+		}
 	}
 }
 
 header{
+	background-color: #a6a6a6;
 	height: 10vh;
-	font-size: 1em;
+	font-size: 1.2em;
+	font-family: 'Work Sans';
 	color: white;
+
+	span{
+		font-family: 'Righteous', cursive;
+	}
 
 	a{
 		text-decoration: none;
 		color: white;
-	}
 
-	a:hover, a:focus{
-		color: white;
-		text-decoration: none;
-		font-weight: bold;
-
+		&:hover, &:focus{
+			color: white;
+			text-decoration: none;
+			font-weight: bold;
+		}
 	}
 }
 
 footer{
+	background-color: #6c757d;
 	font-size: 1em;
 	color: white;
 
 	a{
 		text-decoration: none;
 		color: white;
-	}
 
-	a:hover, a:focus{
-		color: white;
-		text-decoration: none;
-		font-weight: bold;
-
+		&:hover, &:focus{
+			color: #ededed;
+			text-decoration: none;
+		}
 	}
 }
 
