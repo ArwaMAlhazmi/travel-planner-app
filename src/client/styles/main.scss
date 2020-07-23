@@ -51,6 +51,9 @@ form{
 	 	.weatherIcon{
 	 		font-size: 3em;
 	 	}
+	 	.weatherForcast{
+	 		font-size: .8em;
+	 	}
 	 }
 }
 
@@ -77,6 +80,11 @@ form{
 			background-color: #F1F0EC;
 		}
 	}
+}
+
+//prevent button nested tegs from firing events
+button > * {
+  pointer-events: none;
 }
 
 header{
