@@ -1,6 +1,12 @@
 import {getDestinfo, getDestWeather, getDestImage} from './api.js';
 import {addTripCard, removeTripCard} from './updateUI.js';
 import{date_diff_indays, scrollToTripCard} from './helper.js';
+import {validateForm, setDatesConstraints} from './formValidation.js';
+
+let d = new Date();
+let todaysDate =  d.getFullYear()+'-'+ (d.getMonth()+1).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})+'-'+ d.getDate();
+const departureDateInput = document.getElementById('departureDate');
+const returnDateInput = document.getElementById('returnDate');
 
 let trips;
 
@@ -20,18 +26,25 @@ const getTripInfo = async () => {
 };
 
 //  Handle a new trip addition
-const saveTrip = async () => {
+const saveTrip = async (evt) => {
 
-	const trip = await getTripInfo();
-	addTripCard(trip);
+	if (validateForm(evt)){
 
-	scrollToTripCard(trip.id);
-	document.querySelector('form').reset();
+		const trip = await getTripInfo();
+		addTripCard(trip);
 
-	trips.push(trip);
-	localStorage.setItem('savedTrips', JSON.stringify(trips));
+		scrollToTripCard(trip.id);
+		tripForm.reset();
+		//document.querySelector('form').reset();
 
+		trips.push(trip);
+		localStorage.setItem('savedTrips', JSON.stringify(trips));
+
+		tripForm.classList.remove('was-validated');
+		returnDateInput.classList.remove('is-valid');
+	}
 };
+	
 
 // handle removal of a trip
 const deleteTrip = (evt) => {
@@ -45,6 +58,9 @@ const deleteTrip = (evt) => {
 // Event listener to add function to existing HTML DOM element
 document.addEventListener('DOMContentLoaded', () => {
 
+	// etting min dates values for the departure and return dates pickers 
+	setDatesConstraints();
+
 	// check for exisiting localStorage & Build UI from localStorage name 'Saved trips'
 	trips = localStorage.getItem('savedTrips');
 	//add stored local storage data to the trips object
@@ -54,11 +70,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		addTripCard(trip);
 	});
 
-	// event listener for the form "add trip" button
-	const addTripBtn = document.querySelector('#addTripBtn');
-	addTripBtn.addEventListener('click', saveTrip);
+	// form validation on submit
+	const tripForm = document.querySelector('.needs-validation');
+	tripForm.addEventListener('submit', saveTrip);
 
-	//event listener for the "delete trip" button
+	// event listener for the form "add trip" button click
+	// const addTripBtn = document.querySelector('#addTripBtn');
+	// addTripBtn.addEventListener('click', saveTrip);
+
+	//event listener for the "delete trip" button click
 	const tripsDiv = document.querySelector('#trips');
 	tripsDiv.addEventListener('click', (evt) => {
 
@@ -66,4 +86,5 @@ document.addEventListener('DOMContentLoaded', () => {
 			deleteTrip(evt);
 		};
 	});
+
 });
