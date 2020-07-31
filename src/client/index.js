@@ -1,7 +1,6 @@
 import './styles/main.scss';
 import '@fortawesome/fontawesome-free/js/all.js';
-// import './assets/imgs/holder.png';
-// import './assets/imgs/london.jpg';
+import './assets/imgs/fallback-img.png';
 // import './assets/imgs/beach.jpg';
 // import './assets/imgs/birdseyeview_ocean.jpg';
 // import './assets/imgs/ocean-waves-beach-sunset.jpg';

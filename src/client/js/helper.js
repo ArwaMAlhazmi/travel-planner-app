@@ -30,3 +30,7 @@ export const iconPicker = (maxTemp, minTemp) => {
 	};
 };
 
+// A function that display a popup error message
+// export const popupError = (msg) => {
+// };
+

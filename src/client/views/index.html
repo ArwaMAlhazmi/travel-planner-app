@@ -24,18 +24,30 @@
 			</header>
 
 	  		<!-- The app -->
+	  		<div class="modal" tabindex="-1" role="dialog" id="errorModal">
+			  <div class="modal-dialog modal-dialog-centered" role="document">
+			    <div class="modal-content">
+			      <div class="modal-body">
+			      	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			      		 <span aria-hidden="true">&times;</span>
+			        </button>
+			        <p class="modal-text"></p>
+			      </div>
+			    </div>
+			  </div>
+			</div>
 	  		<section id="tripPicker" class="trip-picker row m-0 justify-content-center align-items-center">
   				<form class="border border-light rounded p-3 m-3 needs-validation" novalidate>
 
   					<div class="form-row">
   						<div class="form-group col">
 						    <label class="font-weight-bold text-muted text-secondary" for="CurrentLoc">Current Location:</label>
-						    <input type="text" class="form-control" id="CurrentLoc" placeholder="Enter city name" required>
+						    <input type="text" class="form-control" id="currentLoc" placeholder="Enter city name" pattern="[A-Za-z\s]{2,85}" required>
 						    <div class="invalid-feedback"> Enter your current Location.</div>
 						 </div>
 						 <div class="form-group col">
 						      <label class="font-weight-bold text-muted" for="destination">Destination:</label>
-						    <input type="text" class="form-control" id="destination" placeholder="Enter city name" required>
+						    <input type="text" class="form-control" id="destination" placeholder="Enter city name" pattern="[A-Za-z\s]{2,85}" required>
 						    <div class="invalid-feedback"> Enter a destination.</div>
 						 </div>
 					</div>
@@ -43,12 +55,12 @@
 					<div class="form-row">
 						<div class="form-group col">
 						    <label class="font-weight-bold text-muted" for="departureDate">Departure date:</label>
-						    <input type="date" class="form-control" id="departureDate" min="2020-01-01" required>
+						    <input type="date" class="form-control" id="departureDate" required>
 						    <div class="invalid-feedback"> Pick a date for your departure.</div>
 						 </div>
 						 <div class="form-group col">
 						     <label class="font-weight-bold text-muted" for="returnDate">Return date:</label>
-						    <input type="date" class="form-control" id="returnDate" min="2020-01-01" required>
+						    <input type="date" class="form-control" id="returnDate" required>
 						    <div class="invalid-feedback"> Pick a date for your return.</div>
 						 </div>
 					</div>

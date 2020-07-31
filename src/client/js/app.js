@@ -2,6 +2,8 @@ import {getDestinfo, getDestWeather, getDestImage} from './api.js';
 import {addTripCard, removeTripCard} from './updateUI.js';
 import{date_diff_indays, scrollToTripCard} from './helper.js';
 import {validateForm, setDatesConstraints} from './formValidation.js';
+import $ from 'jquery';
+import 'bootstrap/js/dist/modal.js';
 
 let d = new Date();
 let todaysDate =  d.getFullYear()+'-'+ (d.getMonth()+1).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})+'-'+ d.getDate();
@@ -13,14 +15,41 @@ let trips;
 //create trip data object with user form data
 const getTripInfo = async () => {
 	let lat, lng;
+	let imgHits;
+	let apiResult;
 	let trip = {};
 
 	trip.id = (Date.now()).toString();
 	trip.DepartDate = document.getElementById('departureDate').value;
 	trip.ReturnDate = document.getElementById('returnDate').value;
-	[lat, lng, trip.destCity, trip.destContry] = await getDestinfo(document.getElementById('destination').value);
-	[trip.maxTemp, trip.minTemp] = await getDestWeather(lat, lng, new Date(trip.DepartDate).getMonth());
-	[trip.img, trip.imgDesc] = await getDestImage(trip.destCity);
+
+	//(If) to make sure there is no location error before assigning data
+	apiResult = await getDestinfo(document.getElementById('destination').value);
+	if (apiResult.error){
+		document.querySelector('.modal-text').innerHTML = apiResult.error;
+		$('#errorModal').modal('show');
+		return null;
+	} else {
+		[lat, lng, trip.destCity, trip.destContry] = apiResult;
+	};
+
+	//(If) to make sure there is no weather error before assigning data
+	apiResult = await getDestWeather(lat, lng, new Date(trip.DepartDate).getMonth());
+	if(apiResult.error){
+		document.querySelector('.modal-text').innerHTML = apiResult.error;
+		$('#errorModal').modal('show');
+		return null;
+	} else {
+		[trip.maxTemp, trip.minTemp] = apiResult;
+	};
+
+	
+	[imgHits, trip.img, trip.imgDesc] = await getDestImage(trip.destCity);
+	//handle no imges hits for destination city try for destination country
+	if(!imgHits){
+		[imgHits, trip.img, trip.imgDesc] = await getDestImage(trip.destContry);
+	};
+
 	trip.duration = date_diff_indays(trip.DepartDate, trip.ReturnDate);
 	return trip;
 };
@@ -29,20 +58,19 @@ const getTripInfo = async () => {
 const saveTrip = async (evt) => {
 
 	if (validateForm(evt)){
+		evt.preventDefault();
 
 		const trip = await getTripInfo();
-		addTripCard(trip);
+		if(trip){
 
-		scrollToTripCard(trip.id);
-		tripForm.reset();
-		//document.querySelector('form').reset();
-
-		trips.push(trip);
-		localStorage.setItem('savedTrips', JSON.stringify(trips));
-
-		tripForm.classList.remove('was-validated');
-		returnDateInput.classList.remove('is-valid');
-	}
+			addTripCard(trip);
+			scrollToTripCard(trip.id);
+			document.querySelector('form').reset();
+			trips.push(trip);
+			localStorage.setItem('savedTrips', JSON.stringify(trips));
+			document.querySelector('.needs-validation').classList.remove('was-validated');
+		};
+	};
 };
 	
 
