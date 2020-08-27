@@ -10,7 +10,6 @@ module.exports = merge(common, {
     devServer: {
         proxy: {
             "/tripDetails": "http://localhost:3000",
-            "/hello": "http://localhost:3000"
         }
     },
     module: {

@@ -120,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		} catch(err) {
 			document.querySelector('.modal-text').innerHTML = err.message;
+			toggleLoadingBtn();
 			$('#errorModal').modal('show');
 		}
 		

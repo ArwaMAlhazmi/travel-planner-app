@@ -27,7 +27,6 @@ async function getDestinfo(cityName){
 	if(data.totalResultsCount === 0){
 		throw new Error('City not found');
 	} else {
-		console.log([data.geonames[0].lat , data.geonames[0].lng, data.geonames[0].toponymName, data.geonames[0].countryName])
 		return [data.geonames[0].lat , data.geonames[0].lng, data.geonames[0].toponymName, data.geonames[0].countryName];
 	};
 };
@@ -56,7 +55,6 @@ async function getDestWeather(lat, lng, monthNumber){
 }
 
 async function getDest16daysWeather(lat, lng, date) {
-	console.log('inside getDest16daysWeather')
 	const weatherbitKey = process.env.WEATHERBIT_KEY;
 	
 	let url = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${lat}&lon=${lng}&key=${weatherbitKey}`;
