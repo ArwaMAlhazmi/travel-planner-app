@@ -1,80 +1,74 @@
+import "regenerator-runtime/runtime";
 import {getDestinfo, getDestWeather, getDestImage} from './api.js';
 import {addTripCard, removeTripCard} from './updateUI.js';
 import{date_diff_indays, scrollToTripCard} from './helper.js';
-import {validateForm, setDatesConstraints} from './formValidation.js';
+import {validateForm, setDatesConstraints, setReturnDateConstraint} from './formValidation.js';
 import $ from 'jquery';
 import 'bootstrap/js/dist/modal.js';
 
-let d = new Date();
-let todaysDate =  d.getFullYear()+'-'+ (d.getMonth()+1).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})+'-'+ d.getDate();
+// let d = new Date();
+// let todaysDate =  d.getFullYear()+'-'+ (d.getMonth()+1).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})+'-'+ d.getDate();
 const departureDateInput = document.getElementById('departureDate');
 const returnDateInput = document.getElementById('returnDate');
 
 let trips;
 
-//create trip data object with user form data
-const getTripInfo = async () => {
-	let lat, lng;
-	let imgHits;
-	let apiResult;
+//Create trip data object using user form data
+const getTripDetails = async (url='', tripData={}) => {
+
+	const response = await fetch(url, {
+		method: "POST",
+		body: JSON.stringify(tripData),
+		headers:{
+			"Content-type": "application/json; charset=UTF-8"
+		}
+	});
+	const data = await response.json();
+
+	//handle not 200 response
+	if(!response.ok){
+		throw new Error(data.error);
+	}
+
 	let trip = {};
-
+	trip = data;
 	trip.id = (Date.now()).toString();
-	trip.DepartDate = document.getElementById('departureDate').value;
-	trip.ReturnDate = document.getElementById('returnDate').value;
-
-	//(If) to make sure there is no location error before assigning data
-	apiResult = await getDestinfo(document.getElementById('destination').value);
-	if (apiResult.error){
-		document.querySelector('.modal-text').innerHTML = apiResult.error;
-		$('#errorModal').modal('show');
-		return null;
-	} else {
-		[lat, lng, trip.destCity, trip.destContry] = apiResult;
-	};
-
-	//(If) to make sure there is no weather error before assigning data
-	apiResult = await getDestWeather(lat, lng, new Date(trip.DepartDate).getMonth());
-	if(apiResult.error){
-		document.querySelector('.modal-text').innerHTML = apiResult.error;
-		$('#errorModal').modal('show');
-		return null;
-	} else {
-		[trip.maxTemp, trip.minTemp] = apiResult;
-	};
-
-	
-	[imgHits, trip.img, trip.imgDesc] = await getDestImage(trip.destCity);
-	//handle no imges hits for destination city try for destination country
-	if(!imgHits){
-		[imgHits, trip.img, trip.imgDesc] = await getDestImage(trip.destContry);
-	};
-
+	trip.DepartDate = tripData.departureDate;
+	trip.ReturnDate = tripData.returnDate;
 	trip.duration = date_diff_indays(trip.DepartDate, trip.ReturnDate);
+
 	return trip;
-};
+}
 
-//  Handle a new trip addition
-const saveTrip = async (evt) => {
+//Retrieve form user entered data
+const getTripData = (event) => {
 
-	if (validateForm(evt)){
-		evt.preventDefault();
 
-		const trip = await getTripInfo();
-		if(trip){
+let d = new Date();
+let todaysDate =  d.getFullYear()+'-'+ (d.getMonth()+1).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})+'-'+ d.getDate();
 
-			addTripCard(trip);
-			scrollToTripCard(trip.id);
-			document.querySelector('form').reset();
-			trips.push(trip);
-			localStorage.setItem('savedTrips', JSON.stringify(trips));
-			document.querySelector('.needs-validation').classList.remove('was-validated');
-		};
-	};
+const tripData = {};
+tripData.destCity = document.getElementById('destination').value;
+tripData.departureDate = document.getElementById('departureDate').value;
+tripData.returnDate = document.getElementById('returnDate').value;
+
+const tripWithin = date_diff_indays(todaysDate, tripData.departureDate);
+if(tripWithin <= 16){
+	tripData.within16days = true;
+} 
+
+return tripData;
+}
+
+//Handle a new trip storing
+const saveTrip = (trip) => {
+	if(trip){
+		trips.push(trip);
+		localStorage.setItem('savedTrips', JSON.stringify(trips));
+	}
 };
 	
-
-// handle removal of a trip
+//Handle removal of a trip
 const deleteTrip = (evt) => {
 
 	trips = trips.filter(trip => trip.id !== evt.target.id);
@@ -84,27 +78,50 @@ const deleteTrip = (evt) => {
 
 /* execution starts here */
 // Event listener to add function to existing HTML DOM element
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
 
-	// etting min dates values for the departure and return dates pickers 
+	//Setting min dates values for the departure and return dates pickers 
 	setDatesConstraints();
+	document.getElementById('departureDate').addEventListener('change', setReturnDateConstraint);
 
-	// check for exisiting localStorage & Build UI from localStorage name 'Saved trips'
+	//Check for exisiting localStorage & Build UI from localStorage name 'Saved trips'
 	trips = localStorage.getItem('savedTrips');
-	//add stored local storage data to the trips object
+	//Add stored local storage data to the trips object
 	trips = trips ? JSON.parse(trips) : [];
 	//Build UI cards for saved trips
 	trips.forEach( trip => {
 		addTripCard(trip);
 	});
 
-	// form validation on submit
+	//Handle form submission  
 	const tripForm = document.querySelector('.needs-validation');
-	tripForm.addEventListener('submit', saveTrip);
+	tripForm.addEventListener('submit', async (event) => {
 
-	// event listener for the form "add trip" button click
-	// const addTripBtn = document.querySelector('#addTripBtn');
-	// addTripBtn.addEventListener('click', saveTrip);
+		try {
+
+			// Form validation on submit
+			if (validateForm(event)){
+				//Stop page reload
+				event.preventDefault();
+				//Get trip info with user enered data
+				const formData = getTripData(event);
+				const trip = await getTripDetails('/tripDetails', formData);
+
+				//Save trip to storage
+				saveTrip(trip);
+
+				//Update UI with trip & handle UI
+				addTripCard(trip);
+				scrollToTripCard(trip.id);
+				tripForm.reset();
+			}
+
+		} catch(err) {
+			document.querySelector('.modal-text').innerHTML = err.message;
+			$('#errorModal').modal('show');
+		}
+		
+	});
 
 	//event listener for the "delete trip" button click
 	const tripsDiv = document.querySelector('#trips');

@@ -5,21 +5,46 @@ html {
   scroll-behavior: smooth;
 }
 
-h1{
-	color: $mainColor;
-	font-family: 'Work Sans';
+// h1{
+// 	color: $mainColor;
+// 	font-family: 'Work Sans';
+// }
+
+.addTrip {
+	height: 100vh;
+	overflow: hidden;
+}
+
+.vidBackground {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  min-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  z-index: -1;
+
+  #bgVid {
+  	object-fit: cover;
+  	width: 100%;
+  	height: 100%;
+  	background-color: #f0f0f0;
+  }
 }
 
 form{
-	background-color: rgba(255, 255, 255, 0.3);
+	background-color: rgba(255, 255, 255, 0.5);
 	font-family: 'Work Sans';
 }
 
 .trip-picker{
-	height: 90vh;
-	background: url(../assets/imgs/vacation1.jpg);
-	background-size: cover;
-	background-position: center;
+	position: relative;
+	width: 100%;
+	height: 80%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
 	.attribution{
 		a{
@@ -76,11 +101,29 @@ form{
 	.card{
 		border-style: dashed;
 		border-width: 2.5px;
+
 		.card-body{
 			background-color: #F1F0EC;
 		}
 	}
 }
+
+.destImage{
+	img{
+		min-height: 100%;
+		object-fit: cover;
+	}
+}
+
+.weatherIcon{
+	img{
+		height: auto;
+		width: auto;
+		max-height: 100%;
+		max-width: 100%;
+	}
+
+} 
 
 //prevent button nested tegs from firing events
 button > * {
@@ -88,7 +131,7 @@ button > * {
 }
 
 header{
-	background-color: #a6a6a6;
+	background-color: rgba(255, 255, 255, 0.3);
 	height: 10vh;
 	font-size: 1.2em;
 	font-family: 'Work Sans';

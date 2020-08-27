@@ -13,18 +13,19 @@ export const setDatesConstraints = () => {
 
 };
 
+export const setReturnDateConstraint = () => {
+	returnDateInput.setAttribute('min', departureDateInput.value);
+}
+
 //handle form inputs validation
 export const validateForm = (evt) => {
 
 	const tripForm = document.querySelector('.needs-validation');
-	
+
 	//handle date wrong input
-	if(departureDateInput !== ''){
-		returnDateInput.setAttribute('min', departureDateInput.value);
-		if(departureDateInput.value > returnDateInput.value && returnDateInput.value !== ""){
+	if(departureDateInput.value > returnDateInput.value && returnDateInput.value !== ""){
 			returnDateInput.nextElementSibling.innerHTML = 'Return date should be equal or greater than departure date';
 		};
-	};
 
 	// handle city wrong input
 	const currentLocation = document.getElementById('currentLoc');
@@ -40,13 +41,13 @@ export const validateForm = (evt) => {
 
 	if (tripForm.checkValidity() === false){
 
-			evt.preventDefault();
-			evt.stopPropagation();
-			tripForm.classList.add('was-validated');
+		evt.preventDefault();
+		evt.stopPropagation();
+		tripForm.classList.add('was-validated');
 
-			return false;
+		return false;
 	} else {
-
+		tripForm.classList.remove('was-validated');
 		return true;
 	};
 

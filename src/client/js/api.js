@@ -1,7 +1,7 @@
 //Import api Keys
 import {geonamesKey, worldweatherKey, pixabayKey} from './keys.js';
 
-//get destination info(coordinates, name, countery) from geonames api
+//Get destination info(coordinates, name, countery) from geonames api
 export const getDestinfo = async (cityName) => {
 
 	let url = `http://api.geonames.org/searchJSON?q=${cityName}&maxRows=1&username=${geonamesKey}`;
@@ -21,7 +21,7 @@ export const getDestinfo = async (cityName) => {
 };
 
 
-//get destination weather from worldweather api
+//Get destination Monthly Average Weather Data from worldweather api 
 export const getDestWeather = async (lat, lng, monthNumber) => {
 
 	let url = `http://api.worldweatheronline.com/premium/v1/weather.ashx?key=${worldweatherKey}&q=${lat},${lng}&tp=3&format=json`;
