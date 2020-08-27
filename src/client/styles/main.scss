@@ -1,14 +1,10 @@
 @import 'fonts';
-@import 'vars';
+@import 'header';
+@import 'footer';
 
 html {
   scroll-behavior: smooth;
 }
-
-// h1{
-// 	color: $mainColor;
-// 	font-family: 'Work Sans';
-// }
 
 .addTrip {
 	height: 100vh;
@@ -64,10 +60,34 @@ form{
 	// background-color: #E4E0D7;
 	// background-color: #AAA6A7;
 	background-color: #F1F0EC;
-	 .card-title{
+
+	 .card-title {
 	 	color:#e1ac66;
 	 	font-weight: bold;
 	 }
+
+	 .card-footer {
+	 	width: 100%
+	 }
+
+	 .destImage{
+		img{
+			min-height: 100%;
+			object-fit: cover;
+			border-radius: 1px !important;
+		}
+	}
+
+	.weatherIcon{
+		img{
+			height: auto;
+			width: auto;
+			max-height: 100%;
+			max-width: 100%;
+		}
+
+	} 
+
 	 .tripWeather{
 	 	h6{
 	 		color: #6c6b6c;
@@ -80,10 +100,6 @@ form{
 	 		font-size: .8em;
 	 	}
 	 }
-}
-
-.card-img-top{
-	object-fit: cover;
 }
 
 .add-trip{
@@ -108,65 +124,10 @@ form{
 	}
 }
 
-.destImage{
-	img{
-		min-height: 100%;
-		object-fit: cover;
-	}
-}
-
-.weatherIcon{
-	img{
-		height: auto;
-		width: auto;
-		max-height: 100%;
-		max-width: 100%;
-	}
-
-} 
 
 //prevent button nested tegs from firing events
 button > * {
   pointer-events: none;
-}
-
-header{
-	background-color: rgba(255, 255, 255, 0.3);
-	height: 10vh;
-	font-size: 1.2em;
-	font-family: 'Work Sans';
-	color: white;
-
-	span{
-		font-family: 'Righteous', cursive;
-	}
-
-	a{
-		text-decoration: none;
-		color: white;
-
-		&:hover, &:focus{
-			color: white;
-			text-decoration: none;
-			font-weight: bold;
-		}
-	}
-}
-
-footer{
-	background-color: #6c757d;
-	font-size: 1em;
-	color: white;
-
-	a{
-		text-decoration: none;
-		color: white;
-
-		&:hover, &:focus{
-			color: #ededed;
-			text-decoration: none;
-		}
-	}
 }
 
 @import '~bootstrap';

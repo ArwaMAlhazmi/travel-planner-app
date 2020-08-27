@@ -1,5 +1,4 @@
 import "regenerator-runtime/runtime";
-import {getDestinfo, getDestWeather, getDestImage} from './api.js';
 import {addTripCard, removeTripCard} from './updateUI.js';
 import{date_diff_indays, scrollToTripCard} from './helper.js';
 import {validateForm, setDatesConstraints, setReturnDateConstraint} from './formValidation.js';

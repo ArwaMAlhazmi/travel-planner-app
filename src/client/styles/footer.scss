@@ -1,0 +1,15 @@
+footer{
+	background-color: #6c757d;
+	font-size: 1em;
+	color: white;
+
+	a{
+		text-decoration: none;
+		color: white;
+
+		&:hover, &:focus{
+			color: #ededed;
+			text-decoration: none;
+		}
+	}
+}

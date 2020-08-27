@@ -1,0 +1,22 @@
+header{
+	background-color: rgba(255, 255, 255, 0.3);
+	height: 10vh;
+	font-size: 1.2em;
+	font-family: 'Work Sans';
+	color: white;
+
+	span{
+		font-family: 'Righteous', cursive;
+	}
+
+	a{
+		text-decoration: none;
+		color: white;
+
+		&:hover, &:focus{
+			color: white;
+			text-decoration: none;
+			font-weight: bold;
+		}
+	}
+}

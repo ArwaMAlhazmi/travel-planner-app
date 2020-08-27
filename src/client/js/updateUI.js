@@ -90,7 +90,7 @@ export const addTripCard = (tripInfo) => {
 		      	</div>
 		    </div>
 
-		    <div class="card-footer d-flex align-items-center" style="width: 100%">
+		    <div class="card-footer d-flex align-items-center" style="">
 		      	<small class="text-muted">Your trip will start in <b>${tripStartIn}</b> days</small>
 		      	<button id="${tripInfo.id}" title="Delete Trip" class="btn btn-secondary rounded-circle text-white ml-auto" type="button">
   					<i class="fas fa-trash-alt"></i>
@@ -103,78 +103,6 @@ export const addTripCard = (tripInfo) => {
 tripsDiv.appendChild(tripDiv);
 
 }
-
-// add trip card to UI
-export const addTripCard2 = (tripInfo) => {
-	const tripStartIn = date_diff_indays(new Date(), tripInfo.DepartDate);
-	const tripsDiv = document.querySelector('.trips');
-	const tripDiv = document.createElement('div');
-	tripDiv.id = tripInfo.id;
-	tripDiv.classList.add('trip', 'col-xs-12', 'col-sm-6', 'col-md-4', 'p-3');
-	tripDiv.innerHTML = `
-		<div class="card h-100">
-		    <img class="card-img-top" src="${tripInfo.img}" alt="${tripInfo.destCity} ${tripInfo.imgDesc}">
-		    <div class="card-body">
-		      <h5 class="card-title">${tripInfo.destCity}, ${tripInfo.destContry}</h5>
-		      <p class="card-text">
-
-		      	<div class="tripDates"> 
-		      		<div class="dates">${tripInfo.DepartDate} - ${tripInfo.ReturnDate}</div>
-		      		<div class="duration">Trip Duration: <b>${tripInfo.duration}</b> day/s</div>
-		      	</div>
-		      	<br>
-
-		      	<div class="tripWeather">
-		      		${createFirstDaysWeather(tripInfo)}
-		      		<div class="monthWeather">
-			      		<h6>Typical weather for ${tripInfo.destCity} in ${new Date(tripInfo.DepartDate).getMonth()} is:</h6>
-			      		<div class="weatherData row justify-content-center align-items-center">
-			      			<div class="weatherIcon col-3 text-center">
-		      				<i class="${iconPicker(tripInfo.maxTemp, tripInfo.minTemp)}"></i>
-			      			</div>
-			      			<div class="weatherForcast col-9 pl-0">
-			      				<div class="maxTemp">Average  high-temperature: <b>${tripInfo.maxTemp}</b> °C</div>
-			      				<div class="minTemp">Average low-temperature: <b>${tripInfo.minTemp}</b> °C</div>
-			      			</div>
-			      		</div>	
-			      	</div>
-		      	</div>
-
-		      </p>
-		    </div>
-		    <div class="card-footer d-flex align-items-center">
-		      	<small class="text-muted">Your trip will start in <b>${tripStartIn}</b> days</small>
-		      	<button id="${tripInfo.id}" title="Delete Trip" class="btn btn-secondary rounded-circle text-white ml-auto" type="button">
-  					<i class="fas fa-trash-alt"></i>
-  				</button>
-		    </div>
-		</div>
-		`;
-
-
-	// const weatherDiv = document.createElement('div');
-	// weatherDiv.classList.add('fisrtDayWeather');
-	// weatherDiv.innerHTML = `
-	// 	<h6>Weather forcast for ${destCity} on ${DepartDate} is:</h6>
-
-	// 		<div class="weatherData row justify-content-center align-items-center">
-	// 	      	<div class="weatherIcon col-3 text-center">
-	//       			<img src="${weatherData.icon}">
-	// 	      	</div>
- //      			<div class="weatherForcast col-9 pl-0">
- //      				<div class="temprature"><b>${weatherData.tempreture}</b> °C</div>
- //      				<div class="description"><b>${weatherData.description}</b> °C</div>
- //      			</div>
-	// 	    </div>	
-	// `;
-
-
-	tripsDiv.appendChild(tripDiv);
-	// if(tripInfo.firstDayWeather){
-	// 	createFirstDaysWeather(tripInfo.destCity, tripInfo.DepartDate, tripInfo.firstDayWeather);
-	// }
-};
-
 
 // remove trip card from UI
 export const removeTripCard = (id) => {
