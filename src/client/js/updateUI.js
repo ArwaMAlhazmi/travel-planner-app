@@ -104,6 +104,22 @@ tripsDiv.appendChild(tripDiv);
 
 }
 
+export const toggleLoadingBtn = () => {
+	const addTripBtnBtn = document.querySelector('#addTripBtn');
+	if(!addTripBtnBtn.classList.contains('loading')) {
+		addTripBtnBtn.classList.add('loading');
+		addTripBtnBtn.innerHTML = `
+									<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+									<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+									<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+  									<span class="sr-only">Loading...</span>
+  									`;
+	} else {
+		addTripBtnBtn.classList.remove('loading');
+		addTripBtnBtn.innerHTML = 'Add Trip';
+	}
+}
+
 // remove trip card from UI
 export const removeTripCard = (id) => {
 

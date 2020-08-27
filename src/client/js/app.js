@@ -1,5 +1,5 @@
 import "regenerator-runtime/runtime";
-import {addTripCard, removeTripCard} from './updateUI.js';
+import {addTripCard, removeTripCard, toggleLoadingBtn} from './updateUI.js';
 import{date_diff_indays, scrollToTripCard} from './helper.js';
 import {validateForm, setDatesConstraints, setReturnDateConstraint} from './formValidation.js';
 import $ from 'jquery';
@@ -77,7 +77,7 @@ const deleteTrip = (evt) => {
 
 /* execution starts here */
 // Event listener to add function to existing HTML DOM element
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
 
 	//Setting min dates values for the departure and return dates pickers 
 	setDatesConstraints();
@@ -102,6 +102,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 			if (validateForm(event)){
 				//Stop page reload
 				event.preventDefault();
+				//Show loading
+				toggleLoadingBtn();
 				//Get trip info with user enered data
 				const formData = getTripData(event);
 				const trip = await getTripDetails('/tripDetails', formData);
@@ -113,6 +115,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 				addTripCard(trip);
 				scrollToTripCard(trip.id);
 				tripForm.reset();
+				toggleLoadingBtn();
 			}
 
 		} catch(err) {
